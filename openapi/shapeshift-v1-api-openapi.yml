@@ -1,0 +1,1102 @@
+openapi: 3.0.0
+info:
+  title: '@shapeshiftoss/bitcoin-api v1 API'
+  version: 10.0.0
+  license:
+    name: MIT
+  contact: {}
+servers:
+- url: https://api.bitcoin.shapeshift.com
+  description: bitcoin unchained API
+tags:
+- name: v1
+paths:
+  /api/v1/info:
+    get:
+      operationId: GetInfo
+      responses:
+        '200':
+          description: coinstack info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseInfo'
+      description: Get information about the running coinstack
+      tags:
+      - v1
+      security: []
+      parameters: []
+  /api/v1/account/{pubkey}:
+    get:
+      operationId: GetAccount
+      responses:
+        '200':
+          description: account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get account details by address or extended public key
+      tags:
+      - v1
+      security: []
+      parameters:
+      - description: account address or extended public key
+        in: path
+        name: pubkey
+        required: true
+        schema:
+          type: string
+  /api/v1/account/{pubkey}/txs:
+    get:
+      operationId: GetTxHistory
+      responses:
+        '200':
+          description: transaction history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TxHistory'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get transaction history by address or extended public key
+      tags:
+      - v1
+      security: []
+      parameters:
+      - description: account address or extended public key
+        in: path
+        name: pubkey
+        required: true
+        schema:
+          type: string
+      - description: the cursor returned in previous query (base64 encoded json object with a 'page' property)
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      - description: page size (10 by default)
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          format: double
+          type: number
+  /api/v1/account/{pubkey}/utxos:
+    get:
+      operationId: GetUtxos
+      responses:
+        '200':
+          description: account utxos
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Utxo'
+                type: array
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get all unspent transaction outputs for an address or extended public key
+      tags:
+      - v1
+      security: []
+      parameters:
+      - description: account address or extended public key
+        in: path
+        name: pubkey
+        required: true
+        schema:
+          type: string
+  /api/v1/tx/{txid}:
+    get:
+      operationId: GetTransaction
+      responses:
+        '200':
+          description: transaction payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tx'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get transaction details
+      tags:
+      - v1
+      security: []
+      parameters:
+      - description: transaction hash
+        in: path
+        name: txid
+        required: true
+        schema:
+          type: string
+  /api/v1/tx/{txid}/raw:
+    get:
+      operationId: GetRawTransaction
+      responses:
+        '200':
+          description: transaction payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RawTx'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get raw transaction details directly from the node
+      tags:
+      - v1
+      security: []
+      parameters:
+      - description: transaction hash
+        in: path
+        name: txid
+        required: true
+        schema:
+          type: string
+  /api/v1/send:
+    post:
+      operationId: SendTx
+      responses:
+        '200':
+          description: transaction id
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Sends raw transaction to be broadcast to the node.
+      tags:
+      - v1
+      security: []
+      parameters: []
+      requestBody:
+        description: serialized raw transaction hex
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendTxBody'
+              description: serialized raw transaction hex
+  /api/v1/fees:
+    get:
+      operationId: GetNetworkFees
+      responses:
+        '200':
+          description: current network fees
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkFees'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get current recommended network fees to use in a transaction
+      tags:
+      - v1
+      security: []
+      parameters: []
+  /api/v1/jsonrpc:
+    post:
+      operationId: DoRpcRequest
+      responses:
+        '200':
+          description: jsonrpc response or batch responses
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/RPCResponse'
+                - items:
+                    $ref: '#/components/schemas/RPCResponse'
+                  type: array
+              examples:
+                Example 1:
+                  value:
+                    jsonrpc: '2.0'
+                    id: test
+                    result: '0x1a4'
+      description: Makes a jsonrpc request to the node.
+      tags:
+      - v1
+      security: []
+      parameters: []
+      requestBody:
+        description: jsonrpc request or batch requests
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/RPCRequest'
+              - items:
+                  $ref: '#/components/schemas/RPCRequest'
+                type: array
+              description: jsonrpc request or batch requests
+            example:
+              jsonrpc: '2.0'
+              id: test
+              method: eth_blockNumber
+              params: []
+  /api/v1/gas/estimate:
+    post:
+      operationId: EstimateGas
+      responses:
+        '200':
+          description: estimated gas cost
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GasEstimate'
+              examples:
+                Example 1:
+                  value:
+                    gasLimit: '26540'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Estimate gas cost of a transaction
+      tags:
+      - v1
+      security: []
+      parameters: []
+      requestBody:
+        description: transaction data to estimate gas cost
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimateGasBody'
+              description: transaction data to estimate gas cost
+            example:
+              data: 0x
+              from: '0x0000000000000000000000000000000000000000'
+              to: '0x0000000000000000000000000000000000000000'
+              value: '1337'
+  /api/v1/gas/fees:
+    get:
+      operationId: GetGasFees
+      responses:
+        '200':
+          description: current fees specified in wei
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GasFees'
+              examples:
+                Example 1:
+                  value:
+                    baseFeePerGas: '77654025212'
+                    slow:
+                      gasPrice: '77109280451'
+                      maxFeePerGas: '77744243213'
+                      maxPriorityFeePerGas: '90218001'
+                    average:
+                      gasPrice: '78637140239'
+                      maxFeePerGas: '79158075213'
+                      maxPriorityFeePerGas: '1504050001'
+                    fast:
+                      gasPrice: '85079071846'
+                      maxFeePerGas: '89883761218'
+                      maxPriorityFeePerGas: '12229736006'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: 'Get the current recommended gas fees to use in a transaction
+
+
+        * For EIP-1559 transactions, use `maxFeePerGas` and `maxPriorityFeePerGas`
+
+        * For Legacy transactions, use `gasPrice`'
+      tags:
+      - v1
+      security: []
+      parameters: []
+  /api/v1/fees/priority:
+    get:
+      operationId: GetPriorityFees
+      responses:
+        '200':
+          description: current priority fees specified in micro-lamports
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriorityFees'
+              examples:
+                Example 1:
+                  value:
+                    baseFee: '5000'
+                    slow: '0'
+                    average: '10'
+                    fast: '400000'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get the current recommended priority fees for a transaction to land
+      tags:
+      - v1
+      security: []
+      parameters: []
+  /api/v1/fees/estimate:
+    post:
+      operationId: EstimateFees
+      responses:
+        '200':
+          description: estimated compute unit cost
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get the estimated compute unit cost of a transaction
+      tags:
+      - v1
+      security: []
+      parameters: []
+      requestBody:
+        description: transaction message (base64 encoded)
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimateFeesBody'
+              description: transaction message (base64 encoded)
+  /api/v1/token/{id}:
+    get:
+      operationId: GetToken
+      responses:
+        '200':
+          description: token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenDetails'
+              examples:
+                Example 1:
+                  value:
+                    id: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+                    name: USD Coin
+                    symbol: USDC
+                    decimals: 6
+                    type: FungibleToken
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get token details
+      tags:
+      - v1
+      security: []
+      parameters:
+      - description: token id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+components:
+  schemas:
+    RPCRequest:
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+          nullable: false
+        id:
+          anyOf:
+          - type: string
+          - type: number
+            format: double
+        method:
+          type: string
+        params:
+          items: {}
+          type: array
+      required:
+      - jsonrpc
+      - id
+      - method
+      type: object
+      additionalProperties: false
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
+      properties:
+        message:
+          type: string
+      required:
+      - message
+      type: object
+      additionalProperties: false
+    TokenDetails:
+      description: Contains info about a token
+      properties:
+        id:
+          type: string
+        decimals:
+          type: number
+          format: double
+        name:
+          type: string
+        symbol:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - decimals
+      - name
+      - symbol
+      - type
+      type: object
+      additionalProperties: false
+    ValidationError:
+      description: Contains info about a 422 Validation Error response
+      properties:
+        message:
+          type: string
+          enum:
+          - Validation failed
+          nullable: false
+        details:
+          properties: {}
+          additionalProperties: {}
+          type: object
+      required:
+      - message
+      - details
+      type: object
+      additionalProperties: false
+    Vout:
+      description: Contains info about a transaction output
+      properties:
+        value:
+          type: string
+        n:
+          type: number
+          format: double
+        opReturn:
+          type: string
+        scriptPubKey:
+          properties:
+            hex:
+              type: string
+          type: object
+        addresses:
+          items:
+            type: string
+          type: array
+      required:
+      - value
+      - n
+      - scriptPubKey
+      type: object
+      additionalProperties: false
+    Utxo:
+      description: Contains info about an unspent transaction output
+      properties:
+        txid:
+          type: string
+        vout:
+          type: number
+          format: double
+        value:
+          type: string
+        height:
+          type: number
+          format: double
+        confirmations:
+          type: number
+          format: double
+        address:
+          type: string
+        path:
+          type: string
+        locktime:
+          type: number
+          format: double
+        coinbase:
+          type: boolean
+      required:
+      - txid
+      - vout
+      - value
+      - confirmations
+      type: object
+      additionalProperties: false
+    EstimateGasBody:
+      description: Contains the transaction data to estimate gas cost
+      properties:
+        data:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        value:
+          type: string
+      required:
+      - data
+      - from
+      - to
+      - value
+      type: object
+      additionalProperties: false
+    BadRequestError:
+      description: Contains info about a 400 Bad Request response
+      properties:
+        error:
+          type: string
+      required:
+      - error
+      type: object
+      additionalProperties: false
+    Fees:
+      description: Contains info about legacy and/or EIP-1559 fees
+      properties:
+        gasPrice:
+          type: string
+        maxFeePerGas:
+          type: string
+        maxPriorityFeePerGas:
+          type: string
+      required:
+      - gasPrice
+      type: object
+      additionalProperties: false
+    NetworkFees:
+      description: Contains info about current recommended network fees
+      properties:
+        fast:
+          $ref: '#/components/schemas/NetworkFee'
+        average:
+          $ref: '#/components/schemas/NetworkFee'
+        slow:
+          $ref: '#/components/schemas/NetworkFee'
+      type: object
+      additionalProperties: false
+    PriorityFees:
+      description: Contains info about current recommended priority fees for a transaction to land.
+      properties:
+        baseFee:
+          type: string
+        slow:
+          type: string
+        average:
+          type: string
+        fast:
+          type: string
+      required:
+      - baseFee
+      - slow
+      - average
+      - fast
+      type: object
+      additionalProperties: false
+    Address:
+      description: Contains info about an address associated with an extended public key
+      properties:
+        balance:
+          type: string
+        pubkey:
+          type: string
+        path:
+          type: string
+          description: 'BIP44 derivation path for the address (e.g. `m/84''/0''/0''/0/3`).
+
+            Present only for xpub-derived addresses.'
+      required:
+      - balance
+      - pubkey
+      type: object
+      additionalProperties: false
+    GasFees:
+      description: 'Contains info about current recommended fees to use in a transaction.
+
+        Estimates for slow, average and fast confirmation speeds provided as well.'
+      properties:
+        baseFeePerGas:
+          type: string
+        slow:
+          $ref: '#/components/schemas/Fees'
+        average:
+          $ref: '#/components/schemas/Fees'
+        fast:
+          $ref: '#/components/schemas/Fees'
+      required:
+      - slow
+      - average
+      - fast
+      type: object
+      additionalProperties: false
+    SendTxBody:
+      description: Contains the serialized raw transaction hex
+      properties:
+        hex:
+          type: string
+      required:
+      - hex
+      type: object
+      additionalProperties: false
+    EstimateFeesBody:
+      anyOf:
+      - properties:
+          serializedTx:
+            type: string
+        type: object
+      - properties:
+          message:
+            type: string
+        type: object
+      description: Contains the base64 encoded serialized transaction
+    BaseInfo:
+      description: Contains base info about the running coinstack
+      properties:
+        network:
+          type: string
+      required:
+      - network
+      type: object
+      additionalProperties: false
+    GasEstimate:
+      description: Contains info about estimated gas cost of a transaction
+      properties:
+        gasLimit:
+          type: string
+      required:
+      - gasLimit
+      type: object
+      additionalProperties: false
+    NetworkFee:
+      properties:
+        satsPerKiloByte:
+          type: number
+          format: double
+        blocksUntilConfirmation:
+          type: number
+          format: double
+      required:
+      - satsPerKiloByte
+      - blocksUntilConfirmation
+      type: object
+      description: Contains info about the network fee
+    Vin:
+      description: Contains info about a transaction input
+      properties:
+        txid:
+          type: string
+        vout:
+          type: string
+        sequence:
+          type: number
+          format: double
+        coinbase:
+          type: string
+        scriptSig:
+          properties:
+            hex:
+              type: string
+          type: object
+        addresses:
+          items:
+            type: string
+          type: array
+        value:
+          type: string
+      type: object
+      additionalProperties: false
+    BaseTxHistory_Tx_:
+      description: Contains paginated base transaction history details
+      properties:
+        cursor:
+          type: string
+        pubkey:
+          type: string
+        txs:
+          items:
+            $ref: '#/components/schemas/Tx'
+          type: array
+      required:
+      - pubkey
+      - txs
+      type: object
+      additionalProperties: false
+    Tx:
+      description: Contains info about a transaction
+      properties:
+        txid:
+          type: string
+        blockHash:
+          type: string
+        blockHeight:
+          type: number
+          format: double
+        timestamp:
+          type: number
+          format: double
+        vin:
+          items:
+            $ref: '#/components/schemas/Vin'
+          type: array
+        vout:
+          items:
+            $ref: '#/components/schemas/Vout'
+          type: array
+        confirmations:
+          type: number
+          format: double
+        value:
+          type: string
+        fee:
+          type: string
+        hex:
+          type: string
+      required:
+      - txid
+      - blockHeight
+      - timestamp
+      - vin
+      - vout
+      - confirmations
+      - value
+      - fee
+      - hex
+      type: object
+      additionalProperties: false
+    RPCResponse:
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+          nullable: false
+        id:
+          anyOf:
+          - type: string
+          - type: number
+            format: double
+        result: {}
+        error:
+          properties:
+            data: {}
+            message:
+              type: string
+            code:
+              type: number
+              format: double
+          required:
+          - message
+          - code
+          type: object
+      required:
+      - jsonrpc
+      - id
+      type: object
+      additionalProperties: false
+    RawTx:
+      description: Contains info about a transaction as returned from the node
+      properties:
+        txid:
+          type: string
+        hash:
+          type: string
+        version:
+          type: number
+          format: double
+        size:
+          type: number
+          format: double
+        vsize:
+          type: number
+          format: double
+        weight:
+          type: number
+          format: double
+        locktime:
+          type: number
+          format: double
+        vin:
+          items:
+            properties:
+              txinwitness:
+                type: string
+              scriptSig:
+                properties:
+                  hex:
+                    type: string
+                  asm:
+                    type: string
+                required:
+                - hex
+                - asm
+                type: object
+              coinbase:
+                type: string
+              sequence:
+                type: number
+                format: double
+              vout:
+                type: number
+                format: double
+              txid:
+                type: string
+            type: object
+          type: array
+        vout:
+          items:
+            properties:
+              scriptPubKey:
+                properties:
+                  addresses:
+                    items:
+                      type: string
+                    type: array
+                  type:
+                    type: string
+                  reqSigs:
+                    type: number
+                    format: double
+                  hex:
+                    type: string
+                  asm:
+                    type: string
+                required:
+                - addresses
+                - type
+                - reqSigs
+                - hex
+                - asm
+                type: object
+              n:
+                type: number
+                format: double
+              value:
+                anyOf:
+                - type: string
+                - type: number
+                  format: double
+            type: object
+          type: array
+        hex:
+          type: string
+        blockhash:
+          type: string
+        confirmations:
+          type: number
+          format: double
+        time:
+          type: number
+          format: double
+        blocktime:
+          type: number
+          format: double
+      required:
+      - txid
+      - hash
+      - version
+      - size
+      - vsize
+      - weight
+      - locktime
+      - vin
+      - vout
+      - hex
+      - blockhash
+      - confirmations
+      - time
+      - blocktime
+      type: object
+      additionalProperties: false
+    Account:
+      description: Contains info about an address or extended public key account
+      properties:
+        balance:
+          type: string
+        unconfirmedBalance:
+          type: string
+        pubkey:
+          type: string
+        addresses:
+          items:
+            $ref: '#/components/schemas/Address'
+          type: array
+          description: List of associated addresses for an extended public key
+        nextReceiveAddressIndex:
+          type: number
+          format: double
+          description: The next unused receive address index for an extended public key (change index 0)
+        nextChangeAddressIndex:
+          type: number
+          format: double
+          description: The next unused change address index for an extended public key (change index 1)
+      required:
+      - balance
+      - unconfirmedBalance
+      - pubkey
+      type: object
+      additionalProperties: false
+    TxHistory:
+      $ref: '#/components/schemas/BaseTxHistory_Tx_'
+      description: Contains info about transaction history
