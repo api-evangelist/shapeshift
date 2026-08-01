@@ -1,0 +1,17 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ShapeShift Unchained (bitcoin)
+  version: 1.0.0
+extends: openapi/shapeshift-bitcoin-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: shapeshift
+      x-apievangelist-chain: bitcoin
+      x-apievangelist-auth: public-none
+      x-apievangelist-realtime: websocket-transaction-updates
+      x-apievangelist-source: https://api.bitcoin.shapeshift.com/swagger.json
+  - target: $.servers
+    update:
+      - url: https://api.bitcoin.shapeshift.com
+        description: bitcoin unchained production host

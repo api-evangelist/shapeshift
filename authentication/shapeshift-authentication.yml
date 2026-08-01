@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/shapeshift-ethereum-openapi.json, openapi/shapeshift-bitcoin-openapi.json, openapi/shapeshift-solana-openapi.json
+summary:
+  types: []
+  model: public
+  api_key_required: false
+  oauth2_flows: []
+schemes: []
+notes: >-
+  The ShapeShift unchained public blockchain APIs declare NO securitySchemes in
+  their OpenAPI documents and require no API key, token, or OAuth to read
+  account/transaction data or to broadcast a signed transaction. Access is open
+  over HTTPS on the per-chain api.<chain>.shapeshift.com hosts. Write safety is
+  enforced by the blockchain itself — the /api/v1/send endpoint only accepts
+  transactions already signed client-side, so no server-side credential governs
+  it. (Self-hosted unchained deployments may set upstream node provider API keys
+  via env, but the hosted ShapeShift API surface is unauthenticated.)

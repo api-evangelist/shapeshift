@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/*, https://github.com/shapeshift/unchained
+authentication:
+  style: none
+  detail: Public, key-free HTTPS. See authentication/shapeshift-authentication.yml.
+idempotency:
+  supported: false
+  detail: No Idempotency-Key header or param is documented. Reads are naturally
+    idempotent; POST /api/v1/send is idempotent at the chain layer via the signed
+    transaction's nonce/txid rather than an API idempotency key.
+pagination:
+  style: cursor
+  params:
+    cursor: opaque base64-encoded JSON object with a page property, returned by the
+      previous query
+    pageSize: integer, default 10
+  response_fields:
+    cursor: cursor to pass to fetch the next page
+  applies_to:
+  - GET /api/v1/account/{pubkey}/txs
+versioning:
+  style: uri-path
+  detail: /api/v1 base path across all chains. See lifecycle/shapeshift-lifecycle.yml.
+error_envelope:
+  detail: Small custom JSON envelopes per status; not RFC 9457. See
+    errors/shapeshift-problem-types.yml.
+rate_limiting:
+  detail: No rate-limit headers or published limits documented for the hosted API.
+realtime:
+  detail: A WebSocket surface provides realtime pending/confirmed transaction
+    updates. See asyncapi/shapeshift-unchained-webhooks.yml.
+multichain:
+  detail: One uniform contract is served per chain on api.<chain>.shapeshift.com;
+    EVM, UTXO and Solana variants share the /api/v1/{info,account,tx,send} core.

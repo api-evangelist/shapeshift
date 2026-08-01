@@ -1,0 +1,14 @@
+{
+  "provider": "shapeshift",
+  "sources": [
+    "shapeshift-v1-api-openapi.yml"
+  ],
+  "outputs": [
+    "shapeshift-v1-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

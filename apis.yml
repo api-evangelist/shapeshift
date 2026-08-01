@@ -1,7 +1,30 @@
 aid: shapeshift
 name: Shapeshift
-description: Shapeshift is a company surfaced as a portfolio company of earlybird and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  ShapeShift is a community-owned, non-custodial multichain cryptocurrency
+  platform where users buy, hold, trade, and earn with digital assets across
+  48+ blockchains and 10,000+ tokens while retaining full custody of their keys.
+  Its open-source "unchained" backend exposes a public, key-free REST and
+  WebSocket API that provides a common interface to many blockchains — account
+  balances, transaction history, UTXOs, raw transaction broadcast, gas/fee
+  estimation, and realtime pending/confirmed transaction updates — behind
+  per-chain hosts such as api.ethereum.shapeshift.com and
+  api.bitcoin.shapeshift.com. ShapeShift was founded in 2014, is backed by
+  Earlybird Venture Capital, and today operates as a DAO with all code public
+  under github.com/shapeshift.
+accessModel:
+  pricing: unknown
+  onboarding: open
+  trial: false
+  try_now: false
+  public: true
+  label: Open access
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://shapeshift.com/apple-touch-icon.png
 url: https://raw.githubusercontent.com/api-evangelist/shapeshift/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,12 +34,100 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Cryptocurrency
+- Blockchain
+- Bitcoin
+- Ethereum
+- Web3
+- DeFi
+- Wallet
+- Trading
+- Multichain
+- API
+apis:
+- aid: shapeshift:shapeshift-v1-api
+  name: Shapeshift v1 API
+  description: The v1 API from Shapeshift — 14 operation(s) for v1.
+  humanURL: https://api.ethereum.shapeshift.com/docs/
+  baseURL: https://api.ethereum.shapeshift.com/api/v1
+  tags:
+  - v1
+  properties:
+  - type: OpenAPI
+    url: openapi/shapeshift-v1-api-openapi.yml
+  - type: Documentation
+    url: https://api.ethereum.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.bitcoin.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.solana.shapeshift.com/docs/
+common:
+- type: DomainSecurity
+  url: security/shapeshift-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/shapeshift-agentic-access.yml
+- type: Authentication
+  url: authentication/shapeshift-authentication.yml
+- type: Website
+  url: https://shapeshift.com
+- type: DeveloperPortal
+  url: https://github.com/shapeshift/unchained
+- type: Documentation
+  url: https://api.ethereum.shapeshift.com/docs/
+- type: APIReference
+  url: https://api.ethereum.shapeshift.com/docs/
+- type: GettingStarted
+  url: https://github.com/shapeshift/unchained#readme
+- type: GitHubOrganization
+  url: https://github.com/shapeshift
+- type: SourceCode
+  url: https://github.com/shapeshift/unchained
+- type: Support
+  url: https://shapeshift.com/support
+- type: Blog
+  url: https://shapeshift.com/blog
+- type: SignUp
+  url: https://app.shapeshift.com
+- type: TermsOfService
+  url: https://shapeshift.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://shapeshift.com/privacy-policy
+- type: Packages
+  url: packages/shapeshift-packages.yml
+- type: SDKs
+  url: packages/shapeshift-packages.yml
+- type: MCPServer
+  url: mcp/shapeshift-mcp.yml
+- type: LLMsTxt
+  url: llms/shapeshift-llms.txt
+- type: Conformance
+  url: conformance/shapeshift-conformance.yml
+- type: ErrorCatalog
+  url: errors/shapeshift-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/shapeshift-lifecycle.yml
+- type: Conventions
+  url: conventions/shapeshift-conventions.yml
+- type: DataModel
+  url: data-model/shapeshift-data-model.yml
+- type: ChangeLog
+  url: changelog/shapeshift-changelog.yml
+- type: Webhooks
+  url: asyncapi/shapeshift-unchained-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/shapeshift-ethereum-overlay.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v1

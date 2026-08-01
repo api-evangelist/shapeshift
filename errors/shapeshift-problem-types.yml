@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/shapeshift-ethereum-openapi.json, openapi/shapeshift-bitcoin-openapi.json, openapi/shapeshift-solana-openapi.json
+format: custom-json
+envelope:
+  400: '{ "error": "<message>" }'
+  422: '{ "message": "Validation failed", "details": { ... } }'
+  500: '{ "message": "<message>" }'
+problems:
+- status: 400
+  title: Bad Request
+  schema: BadRequestError
+  description: The request was malformed — e.g. an invalid pubkey/address, txid, or
+    request body.
+  field: error
+- status: 422
+  title: Validation Error
+  schema: ValidationError
+  description: Request failed input validation; the details object enumerates the
+    offending fields.
+  field: details
+- status: 500
+  title: Internal Server Error
+  schema: InternalServerError
+  description: An unexpected server or upstream-node error occurred while servicing
+    the request.
+  field: message
+notes: >-
+  Derived from the 4xx/5xx responses declared across the unchained EVM, UTXO and
+  Solana OpenAPI documents (tsoa-generated). Errors are NOT RFC 9457
+  problem+json; each status carries a small custom JSON envelope. This is the
+  API-level error catalog — ShapeShift is not a card acquirer, so there is no
+  decline-code table.

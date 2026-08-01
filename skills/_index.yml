@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/shapeshift-ethereum-openapi.json, openapi/shapeshift-bitcoin-openapi.json, openapi/shapeshift-solana-openapi.json
+skills:
+- file: shapeshift-check-address-activity.md
+  name: Check a blockchain address balance and transaction history
+  api: openapi/shapeshift-ethereum-openapi.json
+  operations: [GetInfo, GetAccount, GetTxHistory, GetTransaction]
+- file: shapeshift-broadcast-evm-transaction.md
+  name: Estimate fees and broadcast a signed EVM transaction
+  api: openapi/shapeshift-ethereum-openapi.json
+  operations: [GetGasFees, EstimateGas, SendTx, GetTransaction]
+- file: shapeshift-utxo-coin-control.md
+  name: List UTXOs and network fees for a Bitcoin/UTXO address
+  api: openapi/shapeshift-bitcoin-openapi.json
+  operations: [GetAccount, GetUtxos, GetNetworkFees, SendTx]

@@ -1,0 +1,32 @@
+# ShapeShift
+
+> ShapeShift is a community-owned, non-custodial multichain cryptocurrency platform (founded 2014, backed by Earlybird VC, now a DAO). Its open-source "unchained" backend exposes a public, key-free REST + WebSocket API providing a common interface to 40+ blockchains: account/token balances, transaction history, UTXOs, signed-transaction broadcast, gas/fee estimation, and realtime pending/confirmed transaction updates.
+
+## APIs
+
+- [Unchained Ethereum (EVM) API docs](https://api.ethereum.shapeshift.com/docs/): REST for Ethereum & EVM chains (avalanche, bnbsmartchain, optimism, polygon, gnosis, arbitrum, base).
+- [Unchained Bitcoin (UTXO) API docs](https://api.bitcoin.shapeshift.com/docs/): REST for Bitcoin & UTXO chains (dogecoin, litecoin, bitcoincash) with UTXO endpoints.
+- [Unchained Solana API docs](https://api.solana.shapeshift.com/docs/): REST for Solana with enriched transactions and token details.
+
+## Specs
+
+- [Ethereum OpenAPI](https://api.ethereum.shapeshift.com/swagger.json)
+- [Bitcoin OpenAPI](https://api.bitcoin.shapeshift.com/swagger.json)
+- [Solana OpenAPI](https://api.solana.shapeshift.com/swagger.json)
+
+## SDKs
+
+- [@shapeshiftoss/unchained-client (npm)](https://www.npmjs.com/package/@shapeshiftoss/unchained-client): official TypeScript client for the unchained REST + WebSocket APIs.
+
+## Docs
+
+- [Unchained source & README](https://github.com/shapeshift/unchained)
+- [ShapeShift GitHub org](https://github.com/shapeshift)
+- [Support](https://shapeshift.com/support)
+- [Blog](https://shapeshift.com/blog)
+
+## Notes
+
+- Authentication: none — the hosted API is public and key-free over HTTPS.
+- Realtime: WebSocket transaction subscriptions (pending + confirmed) per address.
+- Errors: custom JSON envelopes (400 {error}, 422 {message,details}, 500 {message}); not RFC 9457.

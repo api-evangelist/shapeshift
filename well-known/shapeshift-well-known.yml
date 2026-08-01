@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: searched
+source: live probes of /.well-known/* on shapeshift.com and api.ethereum.shapeshift.com
+host: https://shapeshift.com
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+additional_hosts:
+- host: https://api.ethereum.shapeshift.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+notes: >-
+  No /.well-known discovery surface is published on the ShapeShift web or API
+  hosts (all probes returned 404). Recorded as an honest negative; no WellKnown
+  or SecurityTxt scoring pointer is emitted since nothing was found.

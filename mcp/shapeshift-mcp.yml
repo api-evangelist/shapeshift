@@ -1,0 +1,55 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/shapeshift-ethereum-openapi.json, openapi/shapeshift-bitcoin-openapi.json, openapi/shapeshift-solana-openapi.json
+server:
+  name: shapeshift-unchained
+  transport: http
+  url: null
+  notes: No official hosted ShapeShift MCP server was found. This is a candidate
+    tool list derived from the unchained OpenAPI operations, one tool per
+    operationId, spanning the EVM / UTXO / Solana chain families. ShapeShift does
+    publish an "agentic-chat" repo, but no MCP endpoint is documented.
+tools:
+- name: get_chain_info
+  description: Get network/chain metadata.
+  source_operation: openapi/shapeshift-ethereum-openapi.json#GetInfo
+- name: get_account
+  description: Get balances and token holdings for an address or xpub.
+  source_operation: openapi/shapeshift-ethereum-openapi.json#GetAccount
+- name: get_tx_history
+  description: Get cursor-paginated transaction history for an account.
+  source_operation: openapi/shapeshift-ethereum-openapi.json#GetTxHistory
+- name: get_transaction
+  description: Get a single transaction by txid.
+  source_operation: openapi/shapeshift-ethereum-openapi.json#GetTransaction
+- name: send_transaction
+  description: Broadcast a client-signed raw transaction.
+  source_operation: openapi/shapeshift-ethereum-openapi.json#SendTx
+- name: json_rpc
+  description: Passthrough JSON-RPC request to the underlying node (EVM/Solana).
+  source_operation: openapi/shapeshift-ethereum-openapi.json#DoRpcRequest
+- name: estimate_gas
+  description: Estimate gas for an EVM transaction.
+  source_operation: openapi/shapeshift-ethereum-openapi.json#EstimateGas
+- name: get_gas_fees
+  description: Get current gas/fee data (EVM).
+  source_operation: openapi/shapeshift-ethereum-openapi.json#GetGasFees
+- name: get_utxos
+  description: List unspent transaction outputs for an account (UTXO chains).
+  source_operation: openapi/shapeshift-bitcoin-openapi.json#GetUtxos
+- name: get_raw_tx
+  description: Get the raw transaction for a txid (UTXO chains).
+  source_operation: openapi/shapeshift-bitcoin-openapi.json#GetRawTransaction
+- name: get_network_fees
+  description: Get network fee rates (UTXO chains).
+  source_operation: openapi/shapeshift-bitcoin-openapi.json#GetNetworkFees
+- name: get_priority_fees
+  description: Get Solana priority fee levels.
+  source_operation: openapi/shapeshift-solana-openapi.json#GetPriorityFees
+- name: estimate_fees
+  description: Estimate fees for a Solana transaction.
+  source_operation: openapi/shapeshift-solana-openapi.json#EstimateFees
+- name: get_token
+  description: Get token details by id (Solana).
+  source_operation: openapi/shapeshift-solana-openapi.json#GetToken

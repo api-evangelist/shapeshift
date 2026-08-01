@@ -1,0 +1,62 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.npmjs.com/org/shapeshiftoss
+packages:
+- language: javascript
+  registry: npm
+  name: "@shapeshiftoss/unchained-client"
+  url: https://www.npmjs.com/package/@shapeshiftoss/unchained-client
+  install: npm install @shapeshiftoss/unchained-client
+  version: 10.14.11
+  official: true
+  description: TypeScript axios client to interact with all supported ShapeShift
+    unchained blockchain APIs (REST + WebSocket).
+- language: javascript
+  registry: npm
+  name: "@shapeshiftoss/hdwallet-core"
+  url: https://www.npmjs.com/package/@shapeshiftoss/hdwallet-core
+  install: npm install @shapeshiftoss/hdwallet-core
+  version: 1.62.41
+  official: true
+  description: Core of the ShapeShift HDWallet library — a hardware/software wallet
+    abstraction supporting multiple chains and vendors.
+- language: javascript
+  registry: npm
+  name: "@shapeshiftoss/caip"
+  url: https://www.npmjs.com/package/@shapeshiftoss/caip
+  install: npm install @shapeshiftoss/caip
+  version: 8.16.9
+  official: true
+  description: Chain Agnostic Improvement Proposals (CAIP) implementation for
+    chain/asset/account identifiers.
+- language: javascript
+  registry: npm
+  name: "@shapeshiftoss/chain-adapters"
+  url: https://www.npmjs.com/package/@shapeshiftoss/chain-adapters
+  install: npm install @shapeshiftoss/chain-adapters
+  version: 11.4.0
+  official: true
+  description: Multichain adapters that normalize account, transaction and fee
+    operations across supported chains on top of unchained.
+- language: javascript
+  registry: npm
+  name: "@shapeshiftoss/asset-service"
+  url: https://www.npmjs.com/package/@shapeshiftoss/asset-service
+  install: npm install @shapeshiftoss/asset-service
+  version: 8.12.0
+  official: true
+  description: Service returning supported asset details across ShapeShift-supported
+    chains.
+- language: javascript
+  registry: npm
+  name: "@shapeshiftoss/types"
+  url: https://www.npmjs.com/package/@shapeshiftoss/types
+  install: npm install @shapeshiftoss/types
+  version: 8.6.8
+  official: true
+  description: Common TypeScript types shared across ShapeShift packages.
+notes: >-
+  ShapeShift publishes a large family of first-party libraries under the npm
+  @shapeshiftoss org. @shapeshiftoss/unchained-client is the canonical SDK for
+  the public unchained blockchain APIs cataloged in this repo; the others are
+  supporting wallet/asset/chain libraries used by the ShapeShift web app.

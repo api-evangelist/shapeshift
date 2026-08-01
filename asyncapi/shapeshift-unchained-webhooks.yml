@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/shapeshift/unchained, https://www.npmjs.com/package/@shapeshiftoss/unchained-client
+spec_type: Webhooks
+surface: websocket
+description: >-
+  ShapeShift unchained provides realtime updates about blockchain transactions
+  (pending and confirmed) over a WebSocket interface, alongside its REST API, on
+  the same per-chain api.<chain>.shapeshift.com hosts. Clients subscribe to an
+  address (pubkey) and receive transaction events as they enter the mempool and
+  as they confirm. The first-party @shapeshiftoss/unchained-client library wraps
+  this WebSocket subscription surface.
+events:
+- name: transaction
+  trigger: A transaction affecting a subscribed address is observed.
+  states: [pending, confirmed]
+  keyed_by: pubkey (subscribed address)
+delivery:
+  transport: websocket
+  model: subscribe/push
+  auth: none (public)
+notes: >-
+  Captured as a Webhooks/event-surface artifact: the realtime transaction
+  subscription is documented in the unchained project and implemented by the
+  official client, but ShapeShift does not publish a formal AsyncAPI document or
+  a per-message JSON schema, so no AsyncAPI spec is saved (none is fabricated).
+  The concrete WebSocket URL path and message schema should be read from
+  @shapeshiftoss/unchained-client.

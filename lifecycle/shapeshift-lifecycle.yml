@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/*, https://github.com/shapeshift/unchained
+versioning:
+  scheme: uri-path
+  current: v1
+  api_version: '10.0.0'
+  docs: https://api.ethereum.shapeshift.com/docs/
+  notes: All endpoints are served under /api/v1; the OpenAPI info.version (10.x)
+    tracks the unchained package release, not the URL path version.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published deprecation policy or RFC 8594 Sunset/Deprecation header
+    support was found. No operations are flagged deprecated in the specs.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_notes: No public status page found (status.shapeshift.com does not
+  resolve).
+deprecated_operations: []

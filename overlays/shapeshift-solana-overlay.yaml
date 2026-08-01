@@ -1,0 +1,17 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ShapeShift Unchained (solana)
+  version: 1.0.0
+extends: openapi/shapeshift-solana-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: shapeshift
+      x-apievangelist-chain: solana
+      x-apievangelist-auth: public-none
+      x-apievangelist-realtime: websocket-transaction-updates
+      x-apievangelist-source: https://api.solana.shapeshift.com/swagger.json
+  - target: $.servers
+    update:
+      - url: https://api.solana.shapeshift.com
+        description: solana unchained production host

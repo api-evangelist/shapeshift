@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/shapeshift-ethereum-openapi.json, openapi/shapeshift-bitcoin-openapi.json, openapi/shapeshift-solana-openapi.json
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: all unchained chain APIs publish OpenAPI 3.0.0 at /swagger.json
+- id: rest
+  conforms: true
+  evidence: resource-oriented /api/v1/{account,tx,send,fees,gas} endpoints over HTTPS
+- id: json-rpc-2.0
+  conforms: true
+  evidence: POST /api/v1/jsonrpc passthrough with RPCRequest/RPCResponse schemas
+    (EVM + Solana)
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use custom JSON envelopes ({error} 400, {message,details} 422),
+    not application/problem+json
+- id: oauth2
+  conforms: false
+  evidence: no securitySchemes declared; API is public/key-free
+- id: pagination-cursor
+  conforms: true
+  evidence: transaction history uses opaque base64 cursor + pageSize query params
+- id: caip
+  conforms: true
+  evidence: first-party @shapeshiftoss/caip implements Chain Agnostic Improvement
+    Proposals for chain/asset/account identifiers used across the platform

@@ -1,0 +1,29 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/shapeshift/unchained/tags
+scheme: semver
+current: '10.0.0'
+current_notes: OpenAPI info.version of the hosted chain APIs at capture time.
+changelog_url: https://github.com/shapeshift/unchained/tags
+entries:
+- version: v8.1.0
+  date: null
+- version: v7.2.0
+  date: null
+- version: v7.1.0
+  date: null
+- version: v7.0.0
+  date: null
+- version: v6.11.0
+  date: null
+- version: v6.6.0
+  date: null
+- version: v5.1.0
+  date: null
+- version: v5.0.0
+  date: null
+notes: >-
+  ShapeShift versions the open-source unchained backend with semver git tags
+  (no dated GitHub Releases are published, so entry dates are null). The hosted
+  per-chain APIs report their own OpenAPI info.version independently. The tag
+  list above is the recent window captured from the GitHub tags API.

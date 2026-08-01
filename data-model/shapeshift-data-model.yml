@@ -1,0 +1,57 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/shapeshift-ethereum-openapi.json, openapi/shapeshift-bitcoin-openapi.json, openapi/shapeshift-solana-openapi.json
+entities:
+- name: Info
+  schema: BaseInfo
+  keyed_by: network
+  description: Chain/network metadata returned by GET /api/v1/info.
+- name: Account
+  schema: Account
+  keyed_by: pubkey
+  description: Balance and token holdings for an address or extended public key.
+- name: TokenBalance
+  schema: TokenBalance
+  description: A single token balance held by an Account (EVM/Solana).
+- name: Tx
+  schema: Tx
+  keyed_by: txid
+  description: A blockchain transaction, with transfers and status.
+- name: TxHistory
+  schema: TxHistory
+  description: Cursor-paginated list of Tx for an Account.
+- name: Utxo
+  schema: Utxo
+  description: An unspent transaction output (UTXO chains only).
+- name: Fees
+  schema: [GasFees, NetworkFees, PriorityFees]
+  description: Fee/gas estimates for building a transaction (shape varies by chain
+    family).
+relationships:
+- from: Account
+  to: TokenBalance
+  type: has_many
+  via: tokens
+- from: Account
+  to: TxHistory
+  type: has_many
+  via: /account/{pubkey}/txs
+- from: TxHistory
+  to: Tx
+  type: has_many
+  via: txs
+- from: Account
+  to: Utxo
+  type: has_many
+  via: /account/{pubkey}/utxos
+  chains: [bitcoin, dogecoin, litecoin, bitcoincash]
+- from: Tx
+  to: TokenTransfer
+  type: has_many
+  via: tokenTransfers
+notes: >-
+  Address-centric model: the pubkey (address or xpub) is the primary key that
+  fans out to balances, token balances, transaction history, and (on UTXO
+  chains) UTXOs. Transaction shape differs by chain family — EVM adds
+  InternalTx/tokenTransfers, Solana adds an EnrichedTransaction with swap/NFT
+  events, UTXO adds Vin/Vout.
