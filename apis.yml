@@ -65,6 +65,9 @@ apis:
   - type: Documentation
     url: https://api.solana.shapeshift.com/docs/
 common:
+- type: License
+  name: MIT
+  url: https://github.com/shapeshift/unchained/blob/develop/LICENSE
 - type: DomainSecurity
   url: security/shapeshift-domain-security.yml
 - type: AgenticAccess
