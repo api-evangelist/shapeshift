@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "@shapeshiftoss/bitcoin-api v1 API",
+    "version": "10.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v1",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/info"
+          },
+          "docs": "Get information about the running coinstack"
+        },
+        {
+          "info": {
+            "name": "GetAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/account/:pubkey",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "account address or extended public key"
+              }
+            ]
+          },
+          "docs": "Get account details by address or extended public key"
+        },
+        {
+          "info": {
+            "name": "GetTxHistory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/account/:pubkey/txs",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "account address or extended public key"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "the cursor returned in previous query (base64 encoded json object with a 'page' property)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "page size (10 by default)"
+              }
+            ]
+          },
+          "docs": "Get transaction history by address or extended public key"
+        },
+        {
+          "info": {
+            "name": "GetUtxos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/account/:pubkey/utxos",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "account address or extended public key"
+              }
+            ]
+          },
+          "docs": "Get all unspent transaction outputs for an address or extended public key"
+        },
+        {
+          "info": {
+            "name": "GetTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/tx/:txid",
+            "params": [
+              {
+                "name": "txid",
+                "value": "",
+                "type": "path",
+                "description": "transaction hash"
+              }
+            ]
+          },
+          "docs": "Get transaction details"
+        },
+        {
+          "info": {
+            "name": "GetRawTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/tx/:txid/raw",
+            "params": [
+              {
+                "name": "txid",
+                "value": "",
+                "type": "path",
+                "description": "transaction hash"
+              }
+            ]
+          },
+          "docs": "Get raw transaction details directly from the node"
+        },
+        {
+          "info": {
+            "name": "SendTx",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends raw transaction to be broadcast to the node."
+        },
+        {
+          "info": {
+            "name": "GetNetworkFees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/fees"
+          },
+          "docs": "Get current recommended network fees to use in a transaction"
+        },
+        {
+          "info": {
+            "name": "DoRpcRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/jsonrpc",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Makes a jsonrpc request to the node."
+        },
+        {
+          "info": {
+            "name": "EstimateGas",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/gas/estimate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Estimate gas cost of a transaction"
+        },
+        {
+          "info": {
+            "name": "GetGasFees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/gas/fees"
+          },
+          "docs": "Get the current recommended gas fees to use in a transaction\n\n* For EIP-1559 transactions, use `maxFeePerGas` and `maxPriorityFeePerGas`\n* For Legacy transactions, use `gasPrice`"
+        },
+        {
+          "info": {
+            "name": "GetPriorityFees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/fees/priority"
+          },
+          "docs": "Get the current recommended priority fees for a transaction to land"
+        },
+        {
+          "info": {
+            "name": "EstimateFees",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/fees/estimate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get the estimated compute unit cost of a transaction"
+        },
+        {
+          "info": {
+            "name": "GetToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitcoin.shapeshift.com/api/v1/token/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                "type": "path",
+                "description": "token id"
+              }
+            ]
+          },
+          "docs": "Get token details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

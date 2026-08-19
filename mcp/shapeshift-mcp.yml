@@ -6,10 +6,9 @@ server:
   name: shapeshift-unchained
   transport: http
   url: null
-  notes: No official hosted ShapeShift MCP server was found. This is a candidate
-    tool list derived from the unchained OpenAPI operations, one tool per
-    operationId, spanning the EVM / UTXO / Solana chain families. ShapeShift does
-    publish an "agentic-chat" repo, but no MCP endpoint is documented.
+  notes: No official hosted ShapeShift MCP server was found. This is a candidate tool list derived from
+    the unchained OpenAPI operations, one tool per operationId, spanning the EVM / UTXO / Solana chain
+    families. ShapeShift does publish an "agentic-chat" repo, but no MCP endpoint is documented.
 tools:
 - name: get_chain_info
   description: Get network/chain metadata.
@@ -53,3 +52,9 @@ tools:
 - name: get_token
   description: Get token details by id (Solana).
   source_operation: openapi/shapeshift-solana-openapi.json#GetToken
+deployment:
+  mode: none
+  verified: derived
+  tools: 14
+  checked: '2026-08-12'
+  source: catalog MCP census
