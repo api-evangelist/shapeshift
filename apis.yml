@@ -12,6 +12,20 @@ description: >-
   api.bitcoin.shapeshift.com. ShapeShift was founded in 2014, is backed by
   Earlybird Venture Capital, and today operates as a DAO with all code public
   under github.com/shapeshift.
+deliveryModel:
+  model: open-core
+  license: MIT
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: open
@@ -76,6 +90,10 @@ apis:
   - type: Documentation
     url: https://api.solana.shapeshift.com/docs/
 common:
+- type: IssueTracker
+  url: https://github.com/shapeshift/unchained/issues
+- type: ContributionGuide
+  url: https://github.com/shapeshift/unchained/blob/develop/CONTRIBUTING.MD
 - type: License
   name: MIT
   url: https://github.com/shapeshift/unchained/blob/develop/LICENSE
