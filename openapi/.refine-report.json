@@ -1,7 +1,9 @@
 {
   "provider": "shapeshift",
   "sources": [
-    "shapeshift-v1-api-openapi.yml"
+    "_original/shapeshift-bitcoin-openapi.json",
+    "_original/shapeshift-ethereum-openapi.json",
+    "_original/shapeshift-solana-openapi.json"
   ],
   "outputs": [
     "shapeshift-v1-api-openapi.yml"
@@ -9,6 +11,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "shapeshift-bitcoin-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "shapeshift-bitcoin-openapi.json: declared missing tag: v1",
+    "shapeshift-ethereum-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "shapeshift-ethereum-openapi.json: declared missing tag: v1",
+    "shapeshift-solana-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "shapeshift-solana-openapi.json: declared missing tag: v1",
+    "tag 'v1' spans 3 source specs (shapeshift-bitcoin-openapi.json, shapeshift-ethereum-openapi.json, shapeshift-solana-openapi.json): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "shapeshift-v1-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
