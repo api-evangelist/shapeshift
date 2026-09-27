@@ -1,0 +1,231 @@
+openapi: 3.2.0
+info:
+  title: Shapeshift Fees API
+  version: 10.0.0
+  contact: {}
+  license:
+    name: MIT
+  description: 'Operations tagged Fees across 2 of this provider''s published API definitions: shapeshift-bitcoin-openapi.json, shapeshift-solana-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.bitcoin.shapeshift.com
+  description: bitcoin unchained API
+- url: https://api.solana.shapeshift.com
+  description: solana unchained API
+tags:
+- name: Fees
+paths:
+  /api/v1/fees:
+    get:
+      operationId: GetNetworkFees
+      responses:
+        '200':
+          description: current network fees
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkFees'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get current recommended network fees to use in a transaction
+      tags:
+      - Fees
+      security: []
+      parameters: []
+      summary: Get network fees
+      x-summary-source: derived
+    servers:
+    - url: https://api.bitcoin.shapeshift.com
+      description: bitcoin unchained API
+  /api/v1/fees/priority:
+    get:
+      operationId: GetPriorityFees
+      responses:
+        '200':
+          description: current priority fees specified in micro-lamports
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriorityFees'
+              examples:
+                Example 1:
+                  value:
+                    baseFee: '5000'
+                    slow: '0'
+                    average: '10'
+                    fast: '400000'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get the current recommended priority fees for a transaction to land
+      tags:
+      - Fees
+      security: []
+      parameters: []
+      summary: Get priority fees
+      x-summary-source: derived
+    servers:
+    - url: https://api.solana.shapeshift.com
+      description: solana unchained API
+  /api/v1/fees/estimate:
+    post:
+      operationId: EstimateFees
+      responses:
+        '200':
+          description: estimated compute unit cost
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get the estimated compute unit cost of a transaction
+      tags:
+      - Fees
+      security: []
+      parameters: []
+      requestBody:
+        description: transaction message (base64 encoded)
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimateFeesBody'
+              description: transaction message (base64 encoded)
+      summary: Estimate fees
+      x-summary-source: derived
+    servers:
+    - url: https://api.solana.shapeshift.com
+      description: solana unchained API
+components:
+  schemas:
+    BadRequestError:
+      description: Contains info about a 400 Bad Request response
+      properties:
+        error:
+          type: string
+      required:
+      - error
+      type: object
+      additionalProperties: false
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
+      properties:
+        message:
+          type: string
+      required:
+      - message
+      type: object
+      additionalProperties: false
+    NetworkFee:
+      properties:
+        satsPerKiloByte:
+          type: number
+          format: double
+        blocksUntilConfirmation:
+          type: number
+          format: double
+      required:
+      - satsPerKiloByte
+      - blocksUntilConfirmation
+      type: object
+      description: Contains info about the network fee
+    NetworkFees:
+      description: Contains info about current recommended network fees
+      properties:
+        fast:
+          $ref: '#/components/schemas/NetworkFee'
+        average:
+          $ref: '#/components/schemas/NetworkFee'
+        slow:
+          $ref: '#/components/schemas/NetworkFee'
+      type: object
+      additionalProperties: false
+    ValidationError:
+      description: Contains info about a 422 Validation Error response
+      properties:
+        message:
+          type: string
+          enum:
+          - Validation failed
+        details:
+          properties: {}
+          additionalProperties: {}
+          type: object
+      required:
+      - message
+      - details
+      type: object
+      additionalProperties: false
+    PriorityFees:
+      description: Contains info about current recommended priority fees for a transaction to land.
+      properties:
+        baseFee:
+          type: string
+        slow:
+          type: string
+        average:
+          type: string
+        fast:
+          type: string
+      required:
+      - baseFee
+      - slow
+      - average
+      - fast
+      type: object
+      additionalProperties: false
+    EstimateFeesBody:
+      anyOf:
+      - properties:
+          serializedTx:
+            type: string
+        type: object
+      - properties:
+          message:
+            type: string
+        type: object
+      description: Contains the base64 encoded serialized transaction
+x-refined-from:
+- shapeshift-bitcoin-openapi.json
+- shapeshift-solana-openapi.json

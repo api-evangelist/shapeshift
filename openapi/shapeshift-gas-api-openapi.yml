@@ -1,0 +1,189 @@
+openapi: 3.2.0
+info:
+  title: '@shapeshiftoss/ethereum-api Gas API'
+  version: 10.0.0
+  license:
+    name: MIT
+  contact: {}
+servers:
+- url: https://api.ethereum.shapeshift.com
+  description: ethereum unchained API
+tags:
+- name: Gas
+paths:
+  /api/v1/gas/estimate:
+    post:
+      operationId: EstimateGas
+      responses:
+        '200':
+          description: estimated gas cost
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GasEstimate'
+              examples:
+                Example 1:
+                  value:
+                    gasLimit: '26540'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Estimate gas cost of a transaction
+      tags:
+      - Gas
+      security: []
+      parameters: []
+      requestBody:
+        description: transaction data to estimate gas cost
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimateGasBody'
+              description: transaction data to estimate gas cost
+            example:
+              data: 0x
+              from: '0x0000000000000000000000000000000000000000'
+              to: '0x0000000000000000000000000000000000000000'
+              value: '1337'
+      summary: Estimate gas
+      x-summary-source: derived
+  /api/v1/gas/fees:
+    get:
+      operationId: GetGasFees
+      responses:
+        '200':
+          description: current fees specified in wei
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GasFees'
+              examples:
+                Example 1:
+                  value:
+                    baseFeePerGas: '77654025212'
+                    slow:
+                      gasPrice: '77109280451'
+                      maxFeePerGas: '77744243213'
+                      maxPriorityFeePerGas: '90218001'
+                    average:
+                      gasPrice: '78637140239'
+                      maxFeePerGas: '79158075213'
+                      maxPriorityFeePerGas: '1504050001'
+                    fast:
+                      gasPrice: '85079071846'
+                      maxFeePerGas: '89883761218'
+                      maxPriorityFeePerGas: '12229736006'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: 'Get the current recommended gas fees to use in a transaction
+
+
+        * For EIP-1559 transactions, use `maxFeePerGas` and `maxPriorityFeePerGas`
+
+        * For Legacy transactions, use `gasPrice`'
+      tags:
+      - Gas
+      security: []
+      parameters: []
+      summary: Get gas fees
+      x-summary-source: derived
+components:
+  schemas:
+    Fees:
+      description: Contains info about legacy and/or EIP-1559 fees
+      properties:
+        gasPrice:
+          type: string
+        maxFeePerGas:
+          type: string
+        maxPriorityFeePerGas:
+          type: string
+      required:
+      - gasPrice
+      type: object
+      additionalProperties: false
+    ValidationError:
+      description: Contains info about a 422 Validation Error response
+      properties:
+        message:
+          type: string
+          enum:
+          - Validation failed
+        details:
+          properties: {}
+          additionalProperties: {}
+          type: object
+      required:
+      - message
+      - details
+      type: object
+      additionalProperties: false
+    EstimateGasBody:
+      description: Contains the transaction data to estimate gas cost
+      properties:
+        data:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        value:
+          type: string
+      required:
+      - data
+      - from
+      - to
+      - value
+      type: object
+      additionalProperties: false
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
+      properties:
+        message:
+          type: string
+      required:
+      - message
+      type: object
+      additionalProperties: false
+    GasEstimate:
+      description: Contains info about estimated gas cost of a transaction
+      properties:
+        gasLimit:
+          type: string
+      required:
+      - gasLimit
+      type: object
+      additionalProperties: false
+    GasFees:
+      description: 'Contains info about current recommended fees to use in a transaction.
+
+        Estimates for slow, average and fast confirmation speeds provided as well.'
+      properties:
+        baseFeePerGas:
+          type: string
+        slow:
+          $ref: '#/components/schemas/Fees'
+        average:
+          $ref: '#/components/schemas/Fees'
+        fast:
+          $ref: '#/components/schemas/Fees'
+      required:
+      - slow
+      - average
+      - fast
+      type: object
+      additionalProperties: false

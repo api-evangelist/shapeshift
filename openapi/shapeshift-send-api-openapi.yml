@@ -1,0 +1,113 @@
+openapi: 3.2.0
+info:
+  title: Shapeshift Send API
+  version: 10.0.0
+  contact: {}
+  license:
+    name: MIT
+  description: 'Operations tagged Send across 3 of this provider''s published API definitions: shapeshift-bitcoin-openapi.json, shapeshift-ethereum-openapi.json, shapeshift-solana-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.bitcoin.shapeshift.com
+  description: bitcoin unchained API
+- url: https://api.ethereum.shapeshift.com
+  description: ethereum unchained API
+- url: https://api.solana.shapeshift.com
+  description: solana unchained API
+tags:
+- name: Send
+paths:
+  /api/v1/send:
+    post:
+      operationId: SendTx
+      responses:
+        '200':
+          description: transaction id
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Sends raw transaction to be broadcast to the node.
+      tags:
+      - Send
+      security: []
+      parameters: []
+      requestBody:
+        description: serialized raw transaction hex
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendTxBody'
+              description: serialized raw transaction hex
+      summary: Send tx
+      x-summary-source: derived
+    servers:
+    - url: https://api.bitcoin.shapeshift.com
+      description: bitcoin unchained API
+components:
+  schemas:
+    BadRequestError:
+      description: Contains info about a 400 Bad Request response
+      properties:
+        error:
+          type: string
+      required:
+      - error
+      type: object
+      additionalProperties: false
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
+      properties:
+        message:
+          type: string
+      required:
+      - message
+      type: object
+      additionalProperties: false
+    SendTxBody:
+      description: Contains the serialized raw transaction hex
+      properties:
+        hex:
+          type: string
+      required:
+      - hex
+      type: object
+      additionalProperties: false
+    ValidationError:
+      description: Contains info about a 422 Validation Error response
+      properties:
+        message:
+          type: string
+          enum:
+          - Validation failed
+        details:
+          properties: {}
+          additionalProperties: {}
+          type: object
+      required:
+      - message
+      - details
+      type: object
+      additionalProperties: false
+x-refined-from:
+- shapeshift-bitcoin-openapi.json
+- shapeshift-ethereum-openapi.json
+- shapeshift-solana-openapi.json

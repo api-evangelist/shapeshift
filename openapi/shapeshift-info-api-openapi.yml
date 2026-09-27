@@ -1,0 +1,53 @@
+openapi: 3.2.0
+info:
+  title: Shapeshift Info API
+  version: 10.0.0
+  contact: {}
+  license:
+    name: MIT
+  description: 'Operations tagged Info across 3 of this provider''s published API definitions: shapeshift-bitcoin-openapi.json, shapeshift-ethereum-openapi.json, shapeshift-solana-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.bitcoin.shapeshift.com
+  description: bitcoin unchained API
+- url: https://api.ethereum.shapeshift.com
+  description: ethereum unchained API
+- url: https://api.solana.shapeshift.com
+  description: solana unchained API
+tags:
+- name: Info
+paths:
+  /api/v1/info:
+    get:
+      operationId: GetInfo
+      responses:
+        '200':
+          description: coinstack info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseInfo'
+      description: Get information about the running coinstack
+      tags:
+      - Info
+      security: []
+      parameters: []
+      summary: Get info
+      x-summary-source: derived
+    servers:
+    - url: https://api.bitcoin.shapeshift.com
+      description: bitcoin unchained API
+components:
+  schemas:
+    BaseInfo:
+      description: Contains base info about the running coinstack
+      properties:
+        network:
+          type: string
+      required:
+      - network
+      type: object
+      additionalProperties: false
+x-refined-from:
+- shapeshift-bitcoin-openapi.json
+- shapeshift-ethereum-openapi.json
+- shapeshift-solana-openapi.json

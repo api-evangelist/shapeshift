@@ -1,0 +1,119 @@
+openapi: 3.2.0
+info:
+  title: Shapeshift Jsonrpc API
+  version: 10.0.0
+  contact: {}
+  license:
+    name: MIT
+  description: 'Operations tagged Jsonrpc across 2 of this provider''s published API definitions: shapeshift-ethereum-openapi.json, shapeshift-solana-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.ethereum.shapeshift.com
+  description: ethereum unchained API
+- url: https://api.solana.shapeshift.com
+  description: solana unchained API
+tags:
+- name: Jsonrpc
+paths:
+  /api/v1/jsonrpc:
+    post:
+      operationId: DoRpcRequest
+      responses:
+        '200':
+          description: jsonrpc response or batch responses
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/RPCResponse'
+                - items:
+                    $ref: '#/components/schemas/RPCResponse'
+                  type: array
+              examples:
+                Example 1:
+                  value:
+                    jsonrpc: '2.0'
+                    id: test
+                    result: '0x1a4'
+      description: Makes a jsonrpc request to the node.
+      tags:
+      - Jsonrpc
+      security: []
+      parameters: []
+      requestBody:
+        description: jsonrpc request or batch requests
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/RPCRequest'
+              - items:
+                  $ref: '#/components/schemas/RPCRequest'
+                type: array
+              description: jsonrpc request or batch requests
+            example:
+              jsonrpc: '2.0'
+              id: test
+              method: eth_blockNumber
+              params: []
+      summary: Do rpc request
+      x-summary-source: derived
+    servers:
+    - url: https://api.ethereum.shapeshift.com
+      description: ethereum unchained API
+components:
+  schemas:
+    RPCResponse:
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+        id:
+          anyOf:
+          - type: string
+          - type: number
+            format: double
+        result: {}
+        error:
+          properties:
+            data: {}
+            message:
+              type: string
+            code:
+              type: number
+              format: double
+          required:
+          - message
+          - code
+          type: object
+      required:
+      - jsonrpc
+      - id
+      type: object
+      additionalProperties: false
+    RPCRequest:
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+        id:
+          anyOf:
+          - type: string
+          - type: number
+            format: double
+        method:
+          type: string
+        params:
+          items: {}
+          type: array
+      required:
+      - jsonrpc
+      - id
+      - method
+      type: object
+      additionalProperties: false
+x-refined-from:
+- shapeshift-ethereum-openapi.json
+- shapeshift-solana-openapi.json

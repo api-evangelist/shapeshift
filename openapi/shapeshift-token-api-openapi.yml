@@ -1,0 +1,106 @@
+openapi: 3.2.0
+info:
+  title: '@shapeshiftoss/solana-api Token API'
+  version: 10.0.0
+  license:
+    name: MIT
+  contact: {}
+servers:
+- url: https://api.solana.shapeshift.com
+  description: solana unchained API
+tags:
+- name: Token
+paths:
+  /api/v1/token/{id}:
+    get:
+      operationId: GetToken
+      responses:
+        '200':
+          description: token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenDetails'
+              examples:
+                Example 1:
+                  value:
+                    id: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+                    name: USD Coin
+                    symbol: USDC
+                    decimals: 6
+                    type: FungibleToken
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      description: Get token details
+      tags:
+      - Token
+      security: []
+      parameters:
+      - description: token id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+      summary: Get token
+      x-summary-source: derived
+components:
+  schemas:
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
+      properties:
+        message:
+          type: string
+      required:
+      - message
+      type: object
+      additionalProperties: false
+    TokenDetails:
+      description: Contains info about a token
+      properties:
+        id:
+          type: string
+        decimals:
+          type: number
+          format: double
+        name:
+          type: string
+        symbol:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - decimals
+      - name
+      - symbol
+      - type
+      type: object
+      additionalProperties: false
+    ValidationError:
+      description: Contains info about a 422 Validation Error response
+      properties:
+        message:
+          type: string
+          enum:
+          - Validation failed
+        details:
+          properties: {}
+          additionalProperties: {}
+          type: object
+      required:
+      - message
+      - details
+      type: object
+      additionalProperties: false

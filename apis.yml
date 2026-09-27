@@ -73,16 +73,128 @@ tags_raw:
 - Multichain
 - API
 apis:
-- aid: shapeshift:shapeshift-v1-api
-  name: Shapeshift v1 API
-  description: The v1 API from Shapeshift — 14 operation(s) for v1.
+- aid: shapeshift:shapeshift-account-api
+  name: Shapeshift Account API
+  description: The Account API from Shapeshift — 3 operation(s) for account.
   humanURL: https://api.ethereum.shapeshift.com/docs/
   baseURL: https://api.ethereum.shapeshift.com/api/v1
   tags:
-  - v1
+  - Account
   properties:
   - type: OpenAPI
-    url: openapi/shapeshift-v1-api-openapi.yml
+    url: openapi/shapeshift-account-api-openapi.yml
+  - type: Documentation
+    url: https://api.ethereum.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.bitcoin.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.solana.shapeshift.com/docs/
+- aid: shapeshift:shapeshift-fees-api
+  name: Shapeshift Fees API
+  description: The Fees API from Shapeshift — 3 operation(s) for fees.
+  humanURL: https://api.ethereum.shapeshift.com/docs/
+  baseURL: https://api.ethereum.shapeshift.com/api/v1
+  tags:
+  - Fees
+  properties:
+  - type: OpenAPI
+    url: openapi/shapeshift-fees-api-openapi.yml
+  - type: Documentation
+    url: https://api.ethereum.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.bitcoin.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.solana.shapeshift.com/docs/
+- aid: shapeshift:shapeshift-gas-api
+  name: Shapeshift Gas API
+  description: The Gas API from Shapeshift — 2 operation(s) for gas.
+  humanURL: https://api.ethereum.shapeshift.com/docs/
+  baseURL: https://api.ethereum.shapeshift.com/api/v1
+  tags:
+  - Gas
+  properties:
+  - type: OpenAPI
+    url: openapi/shapeshift-gas-api-openapi.yml
+  - type: Documentation
+    url: https://api.ethereum.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.bitcoin.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.solana.shapeshift.com/docs/
+- aid: shapeshift:shapeshift-info-api
+  name: Shapeshift Info API
+  description: The Info API from Shapeshift — 1 operation(s) for info.
+  humanURL: https://api.ethereum.shapeshift.com/docs/
+  baseURL: https://api.ethereum.shapeshift.com/api/v1
+  tags:
+  - Info
+  properties:
+  - type: OpenAPI
+    url: openapi/shapeshift-info-api-openapi.yml
+  - type: Documentation
+    url: https://api.ethereum.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.bitcoin.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.solana.shapeshift.com/docs/
+- aid: shapeshift:shapeshift-jsonrpc-api
+  name: Shapeshift Jsonrpc API
+  description: The Jsonrpc API from Shapeshift — 1 operation(s) for jsonrpc.
+  humanURL: https://api.ethereum.shapeshift.com/docs/
+  baseURL: https://api.ethereum.shapeshift.com/api/v1
+  tags:
+  - Jsonrpc
+  properties:
+  - type: OpenAPI
+    url: openapi/shapeshift-jsonrpc-api-openapi.yml
+  - type: Documentation
+    url: https://api.ethereum.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.bitcoin.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.solana.shapeshift.com/docs/
+- aid: shapeshift:shapeshift-send-api
+  name: Shapeshift Send API
+  description: The Send API from Shapeshift — 1 operation(s) for send.
+  humanURL: https://api.ethereum.shapeshift.com/docs/
+  baseURL: https://api.ethereum.shapeshift.com/api/v1
+  tags:
+  - Send
+  properties:
+  - type: OpenAPI
+    url: openapi/shapeshift-send-api-openapi.yml
+  - type: Documentation
+    url: https://api.ethereum.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.bitcoin.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.solana.shapeshift.com/docs/
+- aid: shapeshift:shapeshift-token-api
+  name: Shapeshift Token API
+  description: The Token API from Shapeshift — 1 operation(s) for token.
+  humanURL: https://api.ethereum.shapeshift.com/docs/
+  baseURL: https://api.ethereum.shapeshift.com/api/v1
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/shapeshift-token-api-openapi.yml
+  - type: Documentation
+    url: https://api.ethereum.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.bitcoin.shapeshift.com/docs/
+  - type: Documentation
+    url: https://api.solana.shapeshift.com/docs/
+- aid: shapeshift:shapeshift-tx-api
+  name: Shapeshift Tx API
+  description: The Tx API from Shapeshift — 2 operation(s) for tx.
+  humanURL: https://api.ethereum.shapeshift.com/docs/
+  baseURL: https://api.ethereum.shapeshift.com/api/v1
+  tags:
+  - Tx
+  properties:
+  - type: OpenAPI
+    url: openapi/shapeshift-tx-api-openapi.yml
   - type: Documentation
     url: https://api.ethereum.shapeshift.com/docs/
   - type: Documentation
