@@ -15,9 +15,7 @@
     "shapeshift-jsonrpc-api-openapi.yml",
     "shapeshift-token-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -74,10 +72,16 @@
     "tag 'Send' spans 3 source specs (shapeshift-bitcoin-openapi.json, shapeshift-ethereum-openapi.json, shapeshift-solana-openapi.json): per-path servers applied",
     "tag 'Tx' spans 3 source specs (shapeshift-bitcoin-openapi.json, shapeshift-ethereum-openapi.json, shapeshift-solana-openapi.json): per-path servers applied",
     "tag 'Jsonrpc' spans 2 source specs (shapeshift-ethereum-openapi.json, shapeshift-solana-openapi.json): per-path servers applied",
-    "superseded outputs removed: shapeshift-v1-api-openapi.yml",
-    "apis.yml register: written (+8 apis, 8 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
-    "shapeshift-v1-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+    "shapeshift-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shapeshift-fees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shapeshift-gas-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shapeshift-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shapeshift-jsonrpc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shapeshift-send-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shapeshift-token-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shapeshift-tx-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

@@ -103,33 +103,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Fees:
-      description: Contains info about legacy and/or EIP-1559 fees
-      properties:
-        gasPrice:
-          type: string
-        maxFeePerGas:
-          type: string
-        maxPriorityFeePerGas:
-          type: string
-      required:
-      - gasPrice
-      type: object
-      additionalProperties: false
-    ValidationError:
-      description: Contains info about a 422 Validation Error response
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
       properties:
         message:
           type: string
-          enum:
-          - Validation failed
-        details:
-          properties: {}
-          additionalProperties: {}
-          type: object
       required:
       - message
-      - details
+      type: object
+      additionalProperties: false
+    GasEstimate:
+      description: Contains info about estimated gas cost of a transaction
+      properties:
+        gasLimit:
+          type: string
+      required:
+      - gasLimit
       type: object
       additionalProperties: false
     EstimateGasBody:
@@ -150,22 +139,17 @@ components:
       - value
       type: object
       additionalProperties: false
-    InternalServerError:
-      description: Contains info about a 500 Internal Server Error response
+    Fees:
+      description: Contains info about legacy and/or EIP-1559 fees
       properties:
-        message:
+        gasPrice:
+          type: string
+        maxFeePerGas:
+          type: string
+        maxPriorityFeePerGas:
           type: string
       required:
-      - message
-      type: object
-      additionalProperties: false
-    GasEstimate:
-      description: Contains info about estimated gas cost of a transaction
-      properties:
-        gasLimit:
-          type: string
-      required:
-      - gasLimit
+      - gasPrice
       type: object
       additionalProperties: false
     GasFees:
@@ -185,5 +169,21 @@ components:
       - slow
       - average
       - fast
+      type: object
+      additionalProperties: false
+    ValidationError:
+      description: Contains info about a 422 Validation Error response
+      properties:
+        message:
+          type: string
+          enum:
+          - Validation failed
+        details:
+          properties: {}
+          additionalProperties: {}
+          type: object
+      required:
+      - message
+      - details
       type: object
       additionalProperties: false

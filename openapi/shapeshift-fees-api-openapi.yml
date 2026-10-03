@@ -139,24 +139,6 @@ paths:
       description: solana unchained API
 components:
   schemas:
-    BadRequestError:
-      description: Contains info about a 400 Bad Request response
-      properties:
-        error:
-          type: string
-      required:
-      - error
-      type: object
-      additionalProperties: false
-    InternalServerError:
-      description: Contains info about a 500 Internal Server Error response
-      properties:
-        message:
-          type: string
-      required:
-      - message
-      type: object
-      additionalProperties: false
     NetworkFee:
       properties:
         satsPerKiloByte:
@@ -170,6 +152,24 @@ components:
       - blocksUntilConfirmation
       type: object
       description: Contains info about the network fee
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
+      properties:
+        message:
+          type: string
+      required:
+      - message
+      type: object
+      additionalProperties: false
+    BadRequestError:
+      description: Contains info about a 400 Bad Request response
+      properties:
+        error:
+          type: string
+      required:
+      - error
+      type: object
+      additionalProperties: false
     NetworkFees:
       description: Contains info about current recommended network fees
       properties:
@@ -181,6 +181,17 @@ components:
           $ref: '#/components/schemas/NetworkFee'
       type: object
       additionalProperties: false
+    EstimateFeesBody:
+      anyOf:
+      - properties:
+          serializedTx:
+            type: string
+        type: object
+      - properties:
+          message:
+            type: string
+        type: object
+      description: Contains the base64 encoded serialized transaction
     ValidationError:
       description: Contains info about a 422 Validation Error response
       properties:
@@ -215,17 +226,6 @@ components:
       - fast
       type: object
       additionalProperties: false
-    EstimateFeesBody:
-      anyOf:
-      - properties:
-          serializedTx:
-            type: string
-        type: object
-      - properties:
-          message:
-            type: string
-        type: object
-      description: Contains the base64 encoded serialized transaction
 x-refined-from:
 - shapeshift-bitcoin-openapi.json
 - shapeshift-solana-openapi.json

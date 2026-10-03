@@ -63,6 +63,28 @@ paths:
       description: ethereum unchained API
 components:
   schemas:
+    RPCRequest:
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+        id:
+          anyOf:
+          - type: string
+          - type: number
+            format: double
+        method:
+          type: string
+        params:
+          items: {}
+          type: array
+      required:
+      - jsonrpc
+      - id
+      - method
+      type: object
+      additionalProperties: false
     RPCResponse:
       properties:
         jsonrpc:
@@ -90,28 +112,6 @@ components:
       required:
       - jsonrpc
       - id
-      type: object
-      additionalProperties: false
-    RPCRequest:
-      properties:
-        jsonrpc:
-          type: string
-          enum:
-          - '2.0'
-        id:
-          anyOf:
-          - type: string
-          - type: number
-            format: double
-        method:
-          type: string
-        params:
-          items: {}
-          type: array
-      required:
-      - jsonrpc
-      - id
-      - method
       type: object
       additionalProperties: false
 x-refined-from:
