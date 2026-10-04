@@ -143,6 +143,8 @@ apis:
   humanURL: https://api.ethereum.shapeshift.com/docs/
   baseURL: https://api.ethereum.shapeshift.com/api/v1
   tags:
+  - JSON-RPC
+  tags_raw:
   - Jsonrpc
   properties:
   - type: OpenAPI
@@ -175,6 +177,8 @@ apis:
   humanURL: https://api.ethereum.shapeshift.com/docs/
   baseURL: https://api.ethereum.shapeshift.com/api/v1
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
