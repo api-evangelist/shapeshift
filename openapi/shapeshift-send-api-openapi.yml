@@ -64,22 +64,13 @@ paths:
       description: bitcoin unchained API
 components:
   schemas:
-    InternalServerError:
-      description: Contains info about a 500 Internal Server Error response
+    SendTxBody:
+      description: Contains the serialized raw transaction hex
       properties:
-        message:
+        hex:
           type: string
       required:
-      - message
-      type: object
-      additionalProperties: false
-    BadRequestError:
-      description: Contains info about a 400 Bad Request response
-      properties:
-        error:
-          type: string
-      required:
-      - error
+      - hex
       type: object
       additionalProperties: false
     ValidationError:
@@ -98,13 +89,22 @@ components:
       - details
       type: object
       additionalProperties: false
-    SendTxBody:
-      description: Contains the serialized raw transaction hex
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
       properties:
-        hex:
+        message:
           type: string
       required:
-      - hex
+      - message
+      type: object
+      additionalProperties: false
+    BadRequestError:
+      description: Contains info about a 400 Bad Request response
+      properties:
+        error:
+          type: string
+      required:
+      - error
       type: object
       additionalProperties: false
 x-refined-from:

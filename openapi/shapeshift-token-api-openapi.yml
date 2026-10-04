@@ -57,6 +57,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ValidationError:
+      description: Contains info about a 422 Validation Error response
+      properties:
+        message:
+          type: string
+          enum:
+          - Validation failed
+        details:
+          properties: {}
+          additionalProperties: {}
+          type: object
+      required:
+      - message
+      - details
+      type: object
+      additionalProperties: false
     InternalServerError:
       description: Contains info about a 500 Internal Server Error response
       properties:
@@ -86,21 +102,5 @@ components:
       - name
       - symbol
       - type
-      type: object
-      additionalProperties: false
-    ValidationError:
-      description: Contains info about a 422 Validation Error response
-      properties:
-        message:
-          type: string
-          enum:
-          - Validation failed
-        details:
-          properties: {}
-          additionalProperties: {}
-          type: object
-      required:
-      - message
-      - details
       type: object
       additionalProperties: false

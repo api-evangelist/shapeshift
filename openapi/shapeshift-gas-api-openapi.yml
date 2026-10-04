@@ -103,53 +103,20 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    InternalServerError:
-      description: Contains info about a 500 Internal Server Error response
+    ValidationError:
+      description: Contains info about a 422 Validation Error response
       properties:
         message:
           type: string
+          enum:
+          - Validation failed
+        details:
+          properties: {}
+          additionalProperties: {}
+          type: object
       required:
       - message
-      type: object
-      additionalProperties: false
-    GasEstimate:
-      description: Contains info about estimated gas cost of a transaction
-      properties:
-        gasLimit:
-          type: string
-      required:
-      - gasLimit
-      type: object
-      additionalProperties: false
-    EstimateGasBody:
-      description: Contains the transaction data to estimate gas cost
-      properties:
-        data:
-          type: string
-        from:
-          type: string
-        to:
-          type: string
-        value:
-          type: string
-      required:
-      - data
-      - from
-      - to
-      - value
-      type: object
-      additionalProperties: false
-    Fees:
-      description: Contains info about legacy and/or EIP-1559 fees
-      properties:
-        gasPrice:
-          type: string
-        maxFeePerGas:
-          type: string
-        maxPriorityFeePerGas:
-          type: string
-      required:
-      - gasPrice
+      - details
       type: object
       additionalProperties: false
     GasFees:
@@ -171,19 +138,52 @@ components:
       - fast
       type: object
       additionalProperties: false
-    ValidationError:
-      description: Contains info about a 422 Validation Error response
+    EstimateGasBody:
+      description: Contains the transaction data to estimate gas cost
+      properties:
+        data:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        value:
+          type: string
+      required:
+      - data
+      - from
+      - to
+      - value
+      type: object
+      additionalProperties: false
+    GasEstimate:
+      description: Contains info about estimated gas cost of a transaction
+      properties:
+        gasLimit:
+          type: string
+      required:
+      - gasLimit
+      type: object
+      additionalProperties: false
+    InternalServerError:
+      description: Contains info about a 500 Internal Server Error response
       properties:
         message:
           type: string
-          enum:
-          - Validation failed
-        details:
-          properties: {}
-          additionalProperties: {}
-          type: object
       required:
       - message
-      - details
+      type: object
+      additionalProperties: false
+    Fees:
+      description: Contains info about legacy and/or EIP-1559 fees
+      properties:
+        gasPrice:
+          type: string
+        maxFeePerGas:
+          type: string
+        maxPriorityFeePerGas:
+          type: string
+      required:
+      - gasPrice
       type: object
       additionalProperties: false
