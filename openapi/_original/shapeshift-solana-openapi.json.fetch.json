@@ -1,0 +1,12 @@
+{
+ "url": "https://api.solana.shapeshift.com/swagger.json",
+ "requested_url": "https://api.solana.shapeshift.com/swagger.json",
+ "status": 200,
+ "content_type": "application/json; charset=UTF-8",
+ "bytes": 81378,
+ "sha256": "2ccbab9d72721c4bc2afe020e1bbb39ff9752dda6a2f6163ac8c6499479e4484",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
