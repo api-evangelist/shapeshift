@@ -1315,3 +1315,9 @@ x-refined-from:
 - shapeshift-bitcoin-openapi.json
 - shapeshift-ethereum-openapi.json
 - shapeshift-solana-openapi.json
+x-provenance:
+  method: harvested
+  publisher: Shapeshift
+  source: https://api.bitcoin.shapeshift.com/swagger.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
